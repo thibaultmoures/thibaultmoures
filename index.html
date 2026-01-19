@@ -74,8 +74,8 @@
 </div>
 
 <script>
-const playlistId = "PLWP9DtLucVrZoFYVXqPb9WdAi5hzXN-Og"; // ← Remplace par l’ID de ta playlist
-const apiKey = "AIzaSyBY9mrzf7Nk7HOunsQvtZi2uuF8-LG19MU";           // ← Remplace par ta clé API restreinte
+const playlistId = "TON_PLAYLIST_ID"; // ← Remplace par ton ID de playlist
+const apiKey = "TA_CLE_API";           // ← Remplace par ta clé API restreinte
 
 const grid = document.querySelector(".playlist-grid");
 const lightbox = document.getElementById("lightbox");
@@ -83,12 +83,17 @@ const lightboxVideo = document.getElementById("lightbox-video");
 const closeBtn = document.getElementById("close");
 
 async function fetchPlaylist() {
-let nextPageToken = "";
+  let nextPageToken = "";
   do {
-const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}${nextPageToken ? "&pageToken=" + nextPageToken : ""}`;
+    // URL correcte : pageToken seulement si non vide
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}${nextPageToken ? "&pageToken=" + nextPageToken : ""}`;
     const response = await fetch(url);
     const data = await response.json();
-    nextPageToken = data.nextPageToken || "";
+
+    if(!data.items){
+      console.error("Erreur API ou playlist vide :", data);
+      break;
+    }
 
     data.items.forEach(item => {
       const videoId = item.snippet.resourceId.videoId;
@@ -110,6 +115,9 @@ const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&ma
 
       grid.appendChild(card);
     });
+
+    nextPageToken = data.nextPageToken || "";
+
   } while(nextPageToken);
 }
 
