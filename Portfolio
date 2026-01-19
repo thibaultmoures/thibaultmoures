@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mes Réalisations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🎬 Mes Réalisations</h1>
+  </header>
+
+  <main>
+    <iframe
+      src="https://www.youtube.com/embed/videoseries?list=https://www.youtube.com/playlist?list=PLWP9DtLucVrZoFYVXqPb9WdAi5hzXN-Og"
+      title="YouTube playlist"
+      allowfullscreen>
+    </iframe>
+  </main>
+
+  <footer>
+    © 2026 – Thibault Mourès
+  </footer>
+
+</body>
+</html>
